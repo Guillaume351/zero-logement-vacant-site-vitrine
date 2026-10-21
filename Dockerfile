@@ -1,5 +1,11 @@
 FROM python:3.14-bookworm
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.13.4 /uv /uvx /bin/
+
+# Refresh the system CA store as well as uv/certifi (eMudhra incident).
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates \
+    && update-ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG CONTAINER_PORT=8000
 EXPOSE ${CONTAINER_PORT}
@@ -32,6 +38,8 @@ COPY --chown=app:app . .
 # Now the source (incl. sites_conformes/_version.py) is present, so the dynamic
 # version resolves and the project can be installed editable into the env.
 RUN uv sync --locked
+# The Python base image also ships pip with its own vendored CA bundle.
+RUN uv pip install --system "pip==26.2.2"
 
 RUN uv run python manage.py collectstatic --no-input
 
