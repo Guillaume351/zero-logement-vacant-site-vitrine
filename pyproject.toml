@@ -210,9 +210,6 @@ DEP002 = [
     "wagtailmenus",     # obsolete app kept for its models/migrations (see config/settings.py), referenced only by string
 ]
 
-[tool.uv]
-required-version = ">=0.13.4"
-
 # Blocks installation of known malware (typosquatting, deliberately malicious packages)
 [tool.uv.audit]
 malware-check = true

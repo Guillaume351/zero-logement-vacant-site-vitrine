@@ -72,8 +72,6 @@ jobs:
 
       - name: 🐍 Set up uv
         uses: astral-sh/setup-uv@v5
-        with:
-          version: "0.13.4"
 
       - name: Resolve version from release tag
         if: github.event_name == 'release'

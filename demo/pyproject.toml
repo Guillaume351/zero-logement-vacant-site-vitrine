@@ -13,9 +13,6 @@ dev = [
     "django-debug-toolbar>=6.1.0",
 ]
 
-[tool.uv]
-required-version = ">=0.13.4"
-
 # TODO: remove [tool.uv.sources] once sites-conformes >= 3.2.0rc1 is on PyPI.
 # Until then, this points `uv lock` / `uv sync` at the editable checkout in
 # the sibling sites_conformes/ directory so the demo can run against the
